@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/anonymous.iml" filepath="$PROJECT_DIR$/.idea/modules/anonymous.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Anonymous.iml" filepath="$PROJECT_DIR$/.idea/modules/Anonymous.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Anonymous.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Anonymous.app.iml" />
     </modules>
   </component>
 </project>
