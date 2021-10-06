@@ -7,12 +7,12 @@
         <item
             android:id="@+id/nav_home"
             android:iconTint="@color/white"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_my_posts"
             android:iconTint="@color/white"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_posts"
             android:title="@string/menu_my_posts" />
     </group>
 </menu>
