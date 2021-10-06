@@ -44,26 +44,6 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        val am: AccountManager = AccountManager.get(this)
-        val options = Bundle()
-        val url = URL("https://www.googleapis.com/tasks/v1/users/@me/lists?key=$your_api_key")
-        val conn = url.openConnection() as HttpURLConnection
-        val token = ""
-        conn.apply {
-            addRequestProperty("client_id", "!")
-            addRequestProperty("client_secret", "1")
-            setRequestProperty("Authorization", "OAuth $token")
-        }
-
-        am.getAuthToken(
-            myAccount_,                     // Account retrieved using getAccountsByType()
-            "Manage your tasks",            // Auth scope
-            options,                        // Authenticator-specific options
-            this,                           // Your activity
-            OnTokenAcquired(),              // Callback called when a token is successfully acquired
-            Handler(onError())              // Callback called if an error occurs
-        )
-
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
@@ -149,16 +129,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
-
-    private inner class OnTokenAcquired : AccountManagerCallback<Bundle> {
-
-        override fun run(result: AccountManagerFuture<Bundle>) {
-            val launch: Intent? = result.result.get(AccountManager.KEY_INTENT) as? Intent
-            if (launch != null) {
-                startActivityForResult(launch, 0)
-            }
-        }
     }
 }
 
