@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "303314103635",
+    "project_id": "anonymous-3eac4",
+    "storage_bucket": "anonymous-3eac4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303314103635:android:03b134abe9cb68d7e085a6",
+        "android_client_info": {
+          "package_name": "com.insubria.anonymous"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303314103635-qnc3jf9pbromp4q0a9ifn637r4ao54dg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0JOiF4YeYYJTHSaDVhCmpwMn_z4czkRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303314103635-qnc3jf9pbromp4q0a9ifn637r4ao54dg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

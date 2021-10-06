@@ -23,6 +23,11 @@ import com.example.anonymous.databinding.ActivityLoginBinding
 import com.example.anonymous.R
 import android.content.SharedPreferences
 import android.os.Handler
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -31,10 +36,14 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize Firebase Auth
+        auth = Firebase.auth
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -70,11 +79,6 @@ class LoginActivity : AppCompatActivity() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("loggedIn", true)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
-                finish()
             }
             setResult(Activity.RESULT_OK)
 
@@ -125,12 +129,54 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+        redirectToHome()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
+
+    private fun createAccount(email: String, password: String) {
+        // [START create_user_with_email]
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+            }
+        // [END create_user_with_email]
+    }
+
+    private fun updateUI(user: FirebaseUser?) {
+
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            redirectToHome()
+        }
+    }
+
+    private fun redirectToHome() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("loggedIn", true)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
+    }
 }
+
+
 
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.
